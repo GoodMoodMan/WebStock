@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./App_comp.css"; // Custom styles if any
 
