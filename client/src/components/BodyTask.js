@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import "./App_comp.css"; // Custom styles if any
 
 const COINGECKO_API_URL = `https://api.coingecko.com/api/v3/coins/markets`; // URL to CoinGecko API
