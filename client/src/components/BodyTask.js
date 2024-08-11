@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./App_comp.css"; // Ensure this CSS file includes the pagination styles
-import "react-datepicker/dist/react-datepicker.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App_comp.css"; // Custom styles if any
 
 const COINGECKO_API_URL = `https://api.coingecko.com/api/v3/coins/markets`; // URL to CoinGecko API
 
@@ -119,31 +119,26 @@ function BodyTask() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1 style={{ marginBottom: "20px" }}>Leading Cryptocurrencies</h1>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "20px",
-        }}
-      >
+    <div className="container my-4">
+      <h1 className="mb-4">Leading Cryptocurrencies</h1>
+      <div className="d-flex justify-content-between mb-4">
         <input
           type="text"
+          // className="form-control w-25"
+          style={{ width: "50px" }} /* Adjust width as needed */
           placeholder="Search by name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ padding: "10px", width: "300px", marginRight: "20px" }} // Adjust width and margin
         />
-        <div style={{ marginLeft: "auto" }}>
-          <label htmlFor="rowsPerPage" style={{ marginRight: "10px" }}>
+        <div>
+          <label htmlFor="rowsPerPage" className="form-label me-2">
             Rows per page:
           </label>
           <select
             id="rowsPerPage"
+            className="form-select"
             value={rowsPerPage}
             onChange={handleRowsPerPageChange}
-            style={{ padding: "10px" }}
           >
             <option value={5}>5</option>
             <option value={10}>10</option>
@@ -152,182 +147,76 @@ function BodyTask() {
           </select>
         </div>
       </div>
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-          backgroundColor: "white",
-          boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-          borderRadius: "8px",
-          overflow: "hidden",
-        }}
-      >
-        <thead>
-          <tr>
-            <th
-              style={{
-                backgroundColor: "#f8f9fa",
-                padding: "12px",
-                textAlign: "center",
-                fontSize: "14px",
-                color: "#6c757d",
-                borderBottom: "2px solid #dee2e6",
-                cursor: "pointer",
-              }}
-              onClick={() => handleSort("rank")}
-            >
-              Rank{getSortIcon("rank")}
-            </th>
-            <th
-              style={{
-                backgroundColor: "#f8f9fa",
-                padding: "12px",
-                textAlign: "center",
-                fontSize: "14px",
-                color: "#6c757d",
-                borderBottom: "2px solid #dee2e6",
-                cursor: "pointer",
-              }}
-              onClick={() => handleSort("name")}
-            >
-              Name{getSortIcon("name")}
-            </th>
-            <th
-              style={{
-                backgroundColor: "#f8f9fa",
-                padding: "12px",
-                textAlign: "center",
-                fontSize: "14px",
-                color: "#6c757d",
-                borderBottom: "2px solid #dee2e6",
-                cursor: "pointer",
-              }}
-              onClick={() => handleSort("marketCap")}
-            >
-              Market Cap{getSortIcon("marketCap")}
-            </th>
-            <th
-              style={{
-                backgroundColor: "#f8f9fa",
-                padding: "12px",
-                textAlign: "center",
-                fontSize: "14px",
-                color: "#6c757d",
-                borderBottom: "2px solid #dee2e6",
-                cursor: "pointer",
-              }}
-              onClick={() => handleSort("price")}
-            >
-              Price{getSortIcon("price")}
-            </th>
-            <th
-              style={{
-                backgroundColor: "#f8f9fa",
-                padding: "12px",
-                textAlign: "center",
-                fontSize: "14px",
-                color: "#6c757d",
-                borderBottom: "2px solid #dee2e6",
-                cursor: "pointer",
-              }}
-              onClick={() => handleSort("todayChange")}
-            >
-              Today{getSortIcon("todayChange")}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedCoins.map((coin) => (
-            <tr key={coin.symbol}>
-              <td
-                style={{
-                  padding: "12px",
-                  borderBottom: "1px solid #dee2e6",
-                  fontSize: "14px",
-                  textAlign: "center",
-                }}
-              >
-                {coin.rank}
-              </td>
-              <td
-                style={{
-                  padding: "12px",
-                  borderBottom: "1px solid #dee2e6",
-                  fontSize: "14px",
-                  textAlign: "center",
-                }}
-              >
-                <img
-                  src={coin.logo}
-                  alt={coin.name}
-                  style={{
-                    width: "30px",
-                    height: "30px",
-                    marginRight: "10px",
-                    verticalAlign: "middle",
-                  }}
-                />
-                <span style={{ fontWeight: "bold", fontSize: "16px" }}>
-                  {coin.name}
-                </span>
-                <br />
-                <span style={{ color: "#6c757d", fontSize: "14px" }}>
-                  {coin.symbol}
-                </span>
-              </td>
-              <td
-                style={{
-                  padding: "12px",
-                  borderBottom: "1px solid #dee2e6",
-                  fontSize: "14px",
-                  textAlign: "center",
-                }}
-              >
-                ${coin.marketCap.toLocaleString()}
-              </td>
-              <td
-                style={{
-                  padding: "12px",
-                  borderBottom: "1px solid #dee2e6",
-                  fontSize: "14px",
-                  textAlign: "center",
-                }}
-              >
-                ${coin.price.toFixed(2)}
-              </td>
-              <td
-                style={{
-                  padding: "12px",
-                  borderBottom: "1px solid #dee2e6",
-                  fontSize: "14px",
-                  textAlign: "center",
-                  color: coin.todayChange >= 0 ? "green" : "red",
-                  fontWeight: "bold",
-                }}
-              >
-                {coin.todayChange > 0 ? "+" : ""}
-                {coin.todayChange.toFixed(2)}%
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div
-        className="pagination-container"
-        style={{ marginTop: "20px", textAlign: "center" }}
-      >
+      <div className="table-container">
+        <div className="table-wrapper">
+          <table className="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th className="table-fixed" onClick={() => handleSort("rank")}>
+                  Rank{getSortIcon("rank")}
+                </th>
+                <th onClick={() => handleSort("name")}>
+                  Name{getSortIcon("name")}
+                </th>
+                <th onClick={() => handleSort("marketCap")}>
+                  Market Cap{getSortIcon("marketCap")}
+                </th>
+                <th onClick={() => handleSort("price")}>
+                  Price{getSortIcon("price")}
+                </th>
+                <th onClick={() => handleSort("todayChange")}>
+                  Today{getSortIcon("todayChange")}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {paginatedCoins.map((coin) => (
+                <tr key={coin.symbol}>
+                  <td className="table-fixed">{coin.rank}</td>
+                  <td>
+                    <img
+                      src={coin.logo}
+                      alt={coin.name}
+                      className="me-2"
+                      style={{ width: "30px", height: "30px" }}
+                    />
+                    <span className="fw-bold">{coin.name}</span>
+                    <br />
+                    <span className="text-muted">{coin.symbol}</span>
+                  </td>
+                  <td>${coin.marketCap.toLocaleString()}</td>
+                  <td>${coin.price.toFixed(2)}</td>
+                  <td>
+                    <span
+                      className={
+                        coin.todayChange >= 0 ? "text-success" : "text-danger"
+                      }
+                    >
+                      {coin.todayChange > 0 ? "+" : ""}
+                      {coin.todayChange.toFixed(2)}%
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div className="d-flex justify-content-center mt-4">
         <button
-          className={`pagination-button ${currentPage === 1 ? "disabled" : ""}`}
+          className={`btn btn-outline-secondary me-2 ${
+            currentPage === 1 ? "disabled" : ""
+          }`}
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
           Previous
         </button>
-        <span className="pagination-info">
+        <span className="align-self-center">
           Page {currentPage} of {totalPages}
         </span>
         <button
-          className={`pagination-button ${
+          className={`btn btn-outline-secondary ms-2 ${
             currentPage === totalPages ? "disabled" : ""
           }`}
           onClick={() => handlePageChange(currentPage + 1)}
