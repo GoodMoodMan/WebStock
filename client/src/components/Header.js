@@ -1,101 +1,68 @@
-import React from "react";
-import "./App_comp.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import './App_comp.css';
 
-function Header(props) {
-  const HandleTab_SignUp = () => {
-    props.setCurr_tab(2);
+function Header({ curr_tab, setCurr_tab }) {
+  const handleTabSignUp = () => {
+    setCurr_tab(2);
   };
 
-  const HandleTab_LogIn = () => {
-    props.setCurr_tab(1);
+  const handleTabLogIn = () => {
+    setCurr_tab(1);
   };
-  // BOOTSTRAP TEMPLATE NAVBAR
 
-  if (props.curr_tab === 1) {
-    return (
-      <div>
-        <nav
-          className="navbar navbar-expand-lg navbar-dark text-uppercase"
-          id="mainNav"
+  const handleTabContactUs = () => {
+    setCurr_tab(3); 
+  };
+
+  return (
+    <nav className="navbar navbar-expand-lg navbar-dark text-uppercase" id="mainNav">
+      <div className="container">
+        <span className="navbar-brand">Crypto Information</span>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-          <div className="container">
-            <span className="navbar-brand">Crypto Information</span>
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav">
             <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarNavAltMarkup"
-              aria-controls="navbarNavAltMarkup"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
+              className={`nav-item nav-link nav-button ${curr_tab === 1 ? 'border border-white rounded' : ''}`}
+              style={{ cursor: 'pointer' }}
+              onClick={handleTabLogIn}
             >
-              <span className="navbar-toggler-icon"></span>
+              Log In {curr_tab === 1 && <span className="sr-only">(current)</span>}
             </button>
-            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div className="navbar-nav">
-                <button
-                  className="nav-item nav-link border border-white rounded nav-button"
-                  style={{ cursor: "pointer" }}
-                  onClick={HandleTab_LogIn}
-                >
-                  Log In <span className="sr-only">(current)</span>
-                </button>
-                <button
-                  className="nav-item nav-link nav-button"
-                  style={{ cursor: "pointer" }}
-                  onClick={HandleTab_SignUp}
-                >
-                  Sign Up
-                </button>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <nav
-          className="navbar navbar-expand-lg navbar-dark text-uppercase"
-          id="mainNav"
-        >
-          <div className="container">
-            <span className="navbar-brand">Crypto Information</span>
             <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarNavAltMarkup"
-              aria-controls="navbarNavAltMarkup"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
+              className={`nav-item nav-link nav-button ${curr_tab === 2 ? 'border border-white rounded' : ''}`}
+              style={{ cursor: 'pointer' }}
+              onClick={handleTabSignUp}
             >
-              <span className="navbar-toggler-icon"></span>
+              Sign Up {curr_tab === 2 && <span className="sr-only">(current)</span>}
             </button>
-            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div className="navbar-nav">
-                <button
-                  className="nav-item nav-link nav-button"
-                  style={{ cursor: "pointer" }}
-                  onClick={HandleTab_LogIn}
-                >
-                  Log In
-                </button>
-                <button
-                  className="nav-item nav-link border border-white rounded nav-button"
-                  style={{ cursor: "pointer" }}
-                  onClick={HandleTab_SignUp}
-                >
-                  Sign Up <span className="sr-only">(current)</span>
-                </button>
-              </div>
-            </div>
+            <button
+              className={`nav-item nav-link nav-button ${curr_tab === 3 ? 'border border-white rounded' : ''}`}
+              style={{ cursor: 'pointer' }}
+              onClick={handleTabContactUs}
+            >
+              Contact Us {curr_tab === 3 && <span className="sr-only">(current)</span>}
+            </button>
           </div>
-        </nav>
+        </div>
       </div>
-    );
-  }
+    </nav>
+  );
 }
+
+Header.propTypes = {
+  curr_tab: PropTypes.number.isRequired,
+  setCurr_tab: PropTypes.func.isRequired,
+};
 
 export default Header;

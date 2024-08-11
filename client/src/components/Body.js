@@ -2,6 +2,7 @@ import React from 'react'
 
 import Loginform from './Login'
 import Signupform from './Signup'
+import ContactUs from './ContactUs';
 import './App_comp.css';
 
 function Alert(props) {
@@ -34,6 +35,14 @@ function Body(props) {
       <div id='BodyS'>
         <Signupform HandleSignup={props.HandleSignup} setMessage = {props.setMessage} setAlertType = {props.setAlertType}></Signupform>
         <Alert message = {props.message} alert_type = {props.alert_type}></Alert>
+      </div>
+    )
+  }
+  else if (props.curr_tab === 3) {
+    return (
+      <div id='BodyS'>
+        <ContactUs setMessage={props.setMessage} setAlertType={props.setAlertType} />
+        <Alert message={props.message} alert_type={props.alert_type} />
       </div>
     )
   }
