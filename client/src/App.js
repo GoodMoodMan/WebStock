@@ -202,7 +202,7 @@ function App() {
     if (admin) {
       return (
         <div className="App">
-          <HeaderTask HandleLogoff={HandleLogoff}></HeaderTask>
+          <HeaderTask HandleLogoff={HandleLogoff} curr_tab={curr_tab} setCurr_tab={setCurr_tab} ></HeaderTask>
           <BodyAdmin  server_ip = {server_ip} alert_type={alert_type} setAlert = {setAlertType} message={message} setMessage={setMessage}></BodyAdmin>
           
         </div>
