@@ -28,8 +28,8 @@ const transporter = nodemailer.createTransport({
   // FOR PROJECT PURPOSE ONLY
   service: 'gmail',  
   auth: {
-    user: 'webstock123@project.com',  
-    pass: 'webstock123!'
+    user: 'MS_T2q6HX@trial-0p7kx4x5jd2g9yjr.mlsender.net',  
+    pass: 'DU7cQvPhQ9KTfmwZ'
   }
 });
 
