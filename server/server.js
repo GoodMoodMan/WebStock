@@ -28,8 +28,8 @@ const transporter = nodemailer.createTransport({
   // FOR PROJECT PURPOSE ONLY
   service: 'gmail',  
   auth: {
-    user: 'webnodemail123@gmail.com',  
-    pass: 'webstock123'
+    user: 'webstock123@project.com',  
+    pass: 'webstock123!'
   }
 });
 
@@ -41,7 +41,7 @@ app.post('/send-email', async (req, res) => {
   const { name, email, message } = req.body;
 
   const mailOptions = {
-    from: 'webnodemail123@gmail.com',
+    from: 'webstock123@project.com',
     to: email,  // Send to the user's email
     subject: 'Thank you for your message',
     text: `Dear ${name},
