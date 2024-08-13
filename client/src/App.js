@@ -5,7 +5,7 @@ import Header from './components/Header';
 import Body from './components/Body';
 import HeaderTask from './components/HeaderTask';
 import BodyTask from './components/BodyTask';
-import BodyAdmin from './components/BodyAdmin';
+
 
 const server_ip = 'web-stock-beryl.vercel.app';
 
@@ -23,7 +23,7 @@ function App() {
   const [alert_type, setAlertType] = useState(-1);
 
   const [guest, setGuest] = useState(false);
-  const [admin, setAdmin] = useState(false);
+ 
 
 
   useEffect(() => {
@@ -81,7 +81,7 @@ function App() {
         // Access the parsed data
 
         setUsername(username);
-        setAdmin(data.admin);
+     
         
         
         setLoggedin(true);
@@ -93,6 +93,31 @@ function App() {
         console.error('Error occurred:', error);
       });
   };
+
+  const handleContact = (name, email, message) => {
+    fetch(`https://${server_ip}/send-email`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, email, message })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        setMessage('Email sent successfully!');
+        setAlertType(1);
+      } else {
+        setMessage('Failed to send email. Please try again.');
+        setAlertType(0);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      setMessage('An error occurred. Please try again.');
+      setAlertType(0);
+    });
+  }
 
   // SERVER SIGNUP
   const HandleSignup = (username, email, password, confirmPassword) => {
@@ -173,7 +198,7 @@ function App() {
   const HandleLogoff = () => {
     setLoggedin(false);
     setGuest(false);
-    setAdmin(false);
+
     setUsername("");
     
     setMessage('');
@@ -192,31 +217,19 @@ function App() {
       <div className="App">
         <Header curr_tab={curr_tab} setCurr_tab={setCurr_tab}></Header>
         <Body HandleSignup={HandleSignup} curr_tab={curr_tab} setCurr_tab={setCurr_tab} HandleLogin={HandleLogin}
-          message={message} alert_type={alert_type} HandleGuest={HandleGuest}></Body>
+          message={message} alert_type={alert_type} HandleGuest={HandleGuest} handleContact = {handleContact}></Body>
 
       </div>
     );
   }
 
   else {
-    if (admin) {
-      return (
-        <div className="App">
-          <HeaderTask HandleLogoff={HandleLogoff} curr_tab={curr_tab} setCurr_tab={setCurr_tab} ></HeaderTask>
-          <BodyAdmin  server_ip = {server_ip} alert_type={alert_type} setAlert = {setAlertType} message={message} setMessage={setMessage}></BodyAdmin>
-          
-        </div>
-      );
-
-    }
-    else {
-      return (
-        <div className="App">
-          <HeaderTask HandleLogoff={HandleLogoff}></HeaderTask>
-          <BodyTask ></BodyTask>
-        </div>
-      );
-    }
+    return (
+      <div className="App">
+        <HeaderTask HandleLogoff={HandleLogoff}></HeaderTask>
+        <BodyTask ></BodyTask>
+      </div>
+    );
   }
 }
 
