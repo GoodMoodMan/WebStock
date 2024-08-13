@@ -41,8 +41,8 @@ function Body(props) {
   else if (props.curr_tab === 3) {
     return (
       <div id='BodyS'>
-        <ContactUs setMessage={props.setMessage} setAlertType={props.setAlertType} />
-        <Alert message={props.message} alert_type={props.alert_type} />
+        <ContactUs handleContact = {props.handleContact} setMessage={props.setMessage} setAlertType={props.setAlertType} />
+        <Alert  message={props.message} alert_type={props.alert_type} />
       </div>
     )
   }
