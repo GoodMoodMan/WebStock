@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function ContactUs({ setMessage, setAlertType }) {
+function ContactUs(props) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [message, setlocMessage] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here, e.g., sending data to an API
-
-    // Example feedback
-    setMessage('Your message has been sent!');
-    setAlertType(1); // Success alert
+    e.preventDefault(); // Prevent default form submission
+    props.handleContact(name, email, message);
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // Handle form submission logic here, e.g., sending data to an API
+
+  //   // Example feedback
+  //   props.setMessage('Your message has been sent!');
+  //   props.setAlertType(1); // Success alert
+  // };
 
   return (
     <div className="contact-us">
@@ -48,7 +53,7 @@ function ContactUs({ setMessage, setAlertType }) {
             className="form-control"
             rows="4"
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={(e) => setlocMessage(e.target.value)}
             required
           ></textarea>
         </div>
@@ -58,9 +63,5 @@ function ContactUs({ setMessage, setAlertType }) {
   );
 }
 
-ContactUs.propTypes = {
-  setMessage: PropTypes.func.isRequired,
-  setAlertType: PropTypes.func.isRequired,
-};
 
 export default ContactUs;
