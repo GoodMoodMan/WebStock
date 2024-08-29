@@ -26,10 +26,13 @@ mongoose.connect(mongoURI, {
 const transporter = nodemailer.createTransport({
   // THIS NEEDS TO BE IN ENV FILE 
   // FOR PROJECT PURPOSE ONLY
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
   service: 'gmail',  
   auth: {
-    user: 'MS_T2q6HX@trial-0p7kx4x5jd2g9yjr.mlsender.net',  
-    pass: 'DU7cQvPhQ9KTfmwZ'
+    user: 'webnodemail123@gmail.com',  
+    pass: 'itso qroi fmtt gvgj'
   }
 });
 
